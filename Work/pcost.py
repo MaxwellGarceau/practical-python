@@ -1,7 +1,7 @@
 # pcost.py
 #
 # Exercise 1.27
-import csv
+import csv, sys
 
 def portfolio_cost(filename):
     'This function takes a filename as input, reads the portfolio data in that file, and returns the total cost of the portfolio as a float.'
@@ -40,3 +40,11 @@ def portfolio_cost(filename):
         raise RuntimeError('No valid shares or prices found in the file.')
 
     return total
+
+if len(sys.argv) == 2:
+    filename = sys.argv[1]
+else:
+    filename = 'Data/portfolio.csv'
+
+cost = portfolio_cost(filename)
+print('Total cost:', cost)
