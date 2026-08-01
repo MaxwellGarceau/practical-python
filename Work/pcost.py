@@ -17,8 +17,7 @@ def portfolio_cost(filename):
 
         # Share and price validation
         try:
-            shares = int(row[1])
-            price = float(row[2])
+            name, shares, price = portfolio_tuple(row)
         except ValueError as error:
             print('Invalid shares or prices')
             print(f"Error: {error}")
@@ -40,6 +39,13 @@ def portfolio_cost(filename):
         raise RuntimeError('No valid shares or prices found in the file.')
 
     return total
+
+# Model
+def portfolio_tuple(row):
+    'name, shares, price'
+    return (row[0], int(row[1]), float(row[2]))
+
+# Orchestration
 
 if len(sys.argv) == 2:
     filename = sys.argv[1]
