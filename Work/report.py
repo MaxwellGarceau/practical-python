@@ -19,3 +19,14 @@ def read_portfolio(filename):
             holding = {'name': name, 'shares': nshares, 'price': price}
             portfolio.append(holding)
     return portfolio
+
+def read_prices(filename):
+    'reads a set of prices such as this into a dictionary where the keys of the dictionary are the stock names and the values in the dictionary are the stock prices'
+    f = open(filename, 'r')
+    rows = csv.reader(f)
+    price_dict = []
+    for row in rows:
+        if row:
+            stock = {str(row[0]): float(row[1])}
+            price_dict.append(stock)
+    return price_dict
