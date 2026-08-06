@@ -9,7 +9,7 @@ def portfolio_cost(filename):
     file = open(filename, 'rt')
     rows = csv.reader(file)
     next(rows) # skip headers
-    for row in rows:
+    for i, row in enumerate(rows):
 
         # 3 rows
         if len(row) < 3:
@@ -19,10 +19,11 @@ def portfolio_cost(filename):
         try:
             name, shares, price = portfolio_tuple(row)
         except ValueError as error:
-            print('Invalid shares or prices')
+            print(f'Row {i}: Could not convert: {row}')
             print(f"Error: {error}")
             continue
         except IndexError as error:
+            print(f'Row {i}: Could not convert: {row}')
             print(f"IndexError: {error}")
             continue
 
