@@ -2,7 +2,9 @@
 #
 # Exercise 2.4
 
+import copy
 import csv
+from Models.portfolio_item import PortfolioItem
 
 def read_portfolio(filename):
     '''Opens a given portfolio file and reads it into a list of tuples'''
@@ -30,30 +32,25 @@ def read_prices(filename):
             price_dict[str(row[0])] = float(row[1])
     return price_dict
 
-def make_report(portfolio_file, prices_file):
+def make_report(portfolio: list[PortfolioItem], prices: dict[str, float]):
     'Takes a list of portfolio stocks and dictionary of prices as input and returns a list of portfolio tuples'
-    # List of stock holdings
-    # Ex: {'name': 'AA', 'price': 32.2, 'shares': 100}
-    portfolio = read_portfolio(portfolio_file)
 
-    # Stock name -> current price
-    # Ex: {'AA': 20.0}
-    current_prices = read_prices(prices_file)
+    # Create an entirely independent copy of the data structure
+    report_portfolio = copy.deepcopy(portfolio)
 
-    portfolio_total = 0.0
-    change_total = 0.0
-    for holding in portfolio:
+
+    for holding in report_portfolio:
 
         # Calculate stock price change
 
         # Assuming that all stocks are in current_prices
         # Otherwise, we would have to add defensive guards here
-        current_price = current_prices[holding['name']]
+        current_price = prices[holding['name']]
         price_change = current_price - holding['price']
 
         holding['change'] = price_change
 
-    return portfolio
+    return report_portfolio
 
 # # Calculate portfolio total and change in this function
 # # The code is messy, but this avoid running multiple loops for a simple task
