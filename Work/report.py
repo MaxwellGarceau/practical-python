@@ -30,17 +30,15 @@ def read_prices(filename):
             price_dict[str(row[0])] = float(row[1])
     return price_dict
 
-# Calculate portfolio total and change in this function
-# The code is messy, but this avoid running multiple loops for a simple task
-def get_change():
-    'Get portfolio total and change for current dates stock prices'
+def make_report(portfolio_file, prices_file):
+    'Takes a list of portfolio stocks and dictionary of prices as input and returns a list of portfolio tuples'
     # List of stock holdings
     # Ex: {'name': 'AA', 'price': 32.2, 'shares': 100}
-    portfolio = read_portfolio('Data/portfolio.csv')
+    portfolio = read_portfolio(portfolio_file)
 
     # Stock name -> current price
     # Ex: {'AA': 20.0}
-    current_prices = read_prices('Data/prices.csv')
+    current_prices = read_prices(prices_file)
 
     portfolio_total = 0.0
     change_total = 0.0
@@ -53,12 +51,39 @@ def get_change():
         current_price = current_prices[holding['name']]
         price_change = current_price - holding['price']
 
-        # Sum portfolio total
-        portfolio_total += holding['price'] * holding['shares']
-        change_total += price_change * holding['shares']
+        holding['change'] = price_change
 
-    new_total = portfolio_total + change_total
+    return portfolio
 
-    print('Initial portfolio value: ', f"{portfolio_total:.2f}")
-    print('Total value change: ', f"{change_total:.2f}")
-    print('New portfolio value: ', f"{new_total:.2f}")
+# # Calculate portfolio total and change in this function
+# # The code is messy, but this avoid running multiple loops for a simple task
+# def get_change():
+#     'Get portfolio total and change for current dates stock prices'
+#     # List of stock holdings
+#     # Ex: {'name': 'AA', 'price': 32.2, 'shares': 100}
+#     portfolio = read_portfolio('Data/portfolio.csv')
+
+#     # Stock name -> current price
+#     # Ex: {'AA': 20.0}
+#     current_prices = read_prices('Data/prices.csv')
+
+#     portfolio_total = 0.0
+#     change_total = 0.0
+#     for holding in portfolio:
+
+#         # Calculate stock price change
+
+#         # Assuming that all stocks are in current_prices
+#         # Otherwise, we would have to add defensive guards here
+#         current_price = current_prices[holding['name']]
+#         price_change = current_price - holding['price']
+
+#         # Sum portfolio total
+#         portfolio_total += holding['price'] * holding['shares']
+#         change_total += price_change * holding['shares']
+
+#     new_total = portfolio_total + change_total
+
+#     print('Initial portfolio value: ', f"{portfolio_total:.2f}")
+#     print('Total value change: ', f"{change_total:.2f}")
+#     print('New portfolio value: ', f"{new_total:.2f}")
