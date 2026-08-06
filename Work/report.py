@@ -36,10 +36,9 @@ def make_report(portfolio: list[PortfolioItem], prices: dict[str, float]):
     'Takes a list of portfolio stocks and dictionary of prices as input and returns a list of portfolio tuples'
 
     # Create an entirely independent copy of the data structure
-    report_portfolio = copy.deepcopy(portfolio)
+    report = []
 
-
-    for holding in report_portfolio:
+    for holding in portfolio:
 
         # Calculate stock price change
 
@@ -48,9 +47,10 @@ def make_report(portfolio: list[PortfolioItem], prices: dict[str, float]):
         current_price = prices[holding['name']]
         price_change = current_price - holding['price']
 
-        holding['change'] = price_change
+        report.append((holding['name'], holding['shares'], holding['price'], price_change))
 
-    return report_portfolio
+    return report
+
 
 # # Calculate portfolio total and change in this function
 # # The code is messy, but this avoid running multiple loops for a simple task
