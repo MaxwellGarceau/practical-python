@@ -51,6 +51,19 @@ def make_report(portfolio: list[PortfolioItem], prices: dict[str, float]):
 
     return report
 
+def print_table():
+    # List of stock holdings
+    # Ex: {'name': 'AA', 'price': 32.2, 'shares': 100}
+    portfolio = read_portfolio('Data/portfolio.csv')
+
+    # Stock name -> current price
+    # Ex: {'AA': 20.0}
+    current_prices = read_prices('Data/prices.csv')
+
+    report = make_report(portfolio, current_prices)
+
+    for name, shares, price, change in report:
+        print(f'{name:>10s} {shares:>10d} {price:>10.2f} {change:>10.2f}')
 
 # # Calculate portfolio total and change in this function
 # # The code is messy, but this avoid running multiple loops for a simple task
