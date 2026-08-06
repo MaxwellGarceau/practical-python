@@ -8,8 +8,10 @@ def portfolio_cost(filename):
     total = None
     file = open(filename, 'rt')
     rows = csv.reader(file)
-    next(rows) # skip headers
+    headers = next(rows) # skip headers
     for i, row in enumerate(rows):
+
+        record = dict(zip(headers, row))
 
         # 3 rows
         if len(row) < 3:
@@ -17,7 +19,7 @@ def portfolio_cost(filename):
 
         # Share and price validation
         try:
-            name, shares, price = portfolio_tuple(row)
+            name, shares, price = portfolio_tuple(record)
         except ValueError as error:
             print(f'Row {i}: Could not convert: {row}')
             print(f"Error: {error}")
@@ -42,9 +44,9 @@ def portfolio_cost(filename):
     return total
 
 # Model
-def portfolio_tuple(row):
+def portfolio_tuple(record):
     'name, shares, price'
-    return (row[0], int(row[1]), float(row[2]))
+    return (record['name'], int(record['shares']), float(record['price']))
 
 # Orchestration
 
