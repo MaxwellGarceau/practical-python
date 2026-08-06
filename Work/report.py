@@ -62,5 +62,15 @@ def print_table():
 
     report = make_report(portfolio, current_prices)
 
+    headers = ('Name', 'Shares', 'Price', 'Change')
+    h_list: list[str] = []
+    for h in headers:
+        h_list.append(f'{h:>10s}')
+
+    print(" ".join(h_list))
+
+    separator_list = [f'{"":->10s}'] * 4
+    print(" ".join(separator_list))
+
     for name, shares, price, change in report:
         print(f'{name:>10s} {shares:>10d} {price:>10.2f} {change:>10.2f}')
