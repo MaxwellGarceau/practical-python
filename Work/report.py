@@ -73,4 +73,5 @@ def print_table():
     print(" ".join(separator_list))
 
     for name, shares, price, change in report:
-        print(f'{name:>10s} {shares:>10d} {price:>10.2f} {change:>10.2f}')
+        price = f'${price:.2f}'
+        print(f'{name:>10s} {shares:>10d} {price:>10s} {change:>10.2f}')
