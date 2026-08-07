@@ -52,16 +52,7 @@ def make_report(portfolio: list[PortfolioItem], prices: dict[str, float]):
 
     return report
 
-def print_table():
-    # List of stock holdings
-    # Ex: {'name': 'AA', 'price': 32.2, 'shares': 100}
-    portfolio = read_portfolio('Data/portfolio.csv')
-
-    # Stock name -> current price
-    # Ex: {'AA': 20.0}
-    current_prices = read_prices('Data/prices.csv')
-
-    report = make_report(portfolio, current_prices)
+def print_table(report):
 
     headers = ('Name', 'Shares', 'Price', 'Change')
     h_list: list[str] = []
@@ -76,3 +67,17 @@ def print_table():
     for name, shares, price, change in report:
         price = f'${price:.2f}'
         print(f'{name:>10s} {shares:>10d} {price:>10s} {change:>10.2f}')
+
+def portfolio_report(portfolio_filename='Data/portfolio.csv', prices_filename='Data/prices.csv'):
+    '''
+    Orchestration layer
+    '''
+    # List of stock holdings
+    # Ex: {'name': 'AA', 'price': 32.2, 'shares': 100}
+    portfolio = read_portfolio(portfolio_filename)
+
+    # Stock name -> current price
+    # Ex: {'AA': 20.0}
+    current_prices = read_prices(prices_filename)
+    report = make_report(portfolio, current_prices)
+    print_table(report)
