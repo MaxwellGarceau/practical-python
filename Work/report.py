@@ -7,24 +7,17 @@
 import csv
 from Models.portfolio_item import PortfolioItem
 from pathlib import Path
+from fileparse import parse_csv
 
 BASE_DIR = Path(__file__).resolve().parent.as_posix()
 
 def read_portfolio(filename):
     '''Opens a given portfolio file and reads it into a list of tuples'''
-    portfolio = []
 
     with open(filename, 'rt') as f:
         rows = csv.reader(f)
         headers = next(rows)
-        for row in rows:
-            record = dict(zip(headers, row))
-            name = str(record['name'])
-            nshares = int(record['shares'])
-            price = float(record['price'])
-            # holding = (name, nshares, price)
-            holding = {'name': name, 'shares': nshares, 'price': price}
-            portfolio.append(holding)
+        portfolio = parse_csv(rows, headers, [str, int, float])
     return portfolio
 
 def read_prices(filename):
