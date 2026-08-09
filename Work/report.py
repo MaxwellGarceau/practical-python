@@ -1,6 +1,8 @@
+#! /usr/bin/env python3
 # report.py
 #
 # Exercise 2.4
+
 
 import csv
 from Models.portfolio_item import PortfolioItem
@@ -83,3 +85,18 @@ def portfolio_report(portfolio_filename=(BASE_DIR + '/Data/portfolio.csv'), pric
     current_prices = read_prices(prices_filename)
     report = make_report(portfolio, current_prices)
     print_table(report)
+
+def main(argv):
+    portfolio = argv[1]
+    prices = argv[2]
+
+    portfolio_report(portfolio, prices)
+
+# >>> import report
+# >>> report.main(['report.py', 'Data/portfolio.csv', 'Data/prices.csv'])
+if __name__ == '__main__':
+    import sys
+    if len(sys.argv) != 3:
+        raise SystemExit(f'Too few arguments. Usage: {sys.argv[0]} ' 'portfile pricefile')
+    main(sys.argv)
+    sys.exit(0)
