@@ -2,9 +2,11 @@
 #
 # Exercise 2.4
 
-import copy
 import csv
 from Models.portfolio_item import PortfolioItem
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.as_posix()
 
 def read_portfolio(filename):
     '''Opens a given portfolio file and reads it into a list of tuples'''
@@ -68,7 +70,7 @@ def print_table(report):
         price = f'${price:.2f}'
         print(f'{name:>10s} {shares:>10d} {price:>10s} {change:>10.2f}')
 
-def portfolio_report(portfolio_filename='Data/portfolio.csv', prices_filename='Data/prices.csv'):
+def portfolio_report(portfolio_filename=(BASE_DIR + '/Data/portfolio.csv'), prices_filename=(BASE_DIR + '/Data/prices.csv')):
     '''
     Orchestration layer
     '''
