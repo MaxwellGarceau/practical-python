@@ -11,6 +11,5 @@ class Stock:
         self.shares = self.shares - amount
 
     def __repr__(self):
-        values = tuple(vars(self).values())
-        values = [ "'" + item + "'" if isinstance(item, str) else str(item) for item in values ]
+        values = [repr(value) for value in vars(self).values() ]
         return 'Stock(' + ', '.join(values) + ')'
