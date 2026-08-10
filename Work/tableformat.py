@@ -57,3 +57,15 @@ class HTMLTableFormatter(TableFormatter):
             html_list.append('<td>' + col + '</td>')
         html_list.append('</tr>')
         print(''.join(html_list))
+
+# name: txt', 'csv', or 'html'
+def create_formatter(name: str) -> TableFormatter:
+    match name:
+        case 'txt':
+            return TextTableFormatter()
+        case 'csv':
+            return CSVTableFormatter()
+        case 'html':
+            return HTMLTableFormatter()
+        case _:
+            raise ValueError('Name must be "txt", "csv", or "html"')
