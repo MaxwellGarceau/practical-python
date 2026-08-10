@@ -9,3 +9,8 @@ class Stock:
 
     def sell(self, amount: int) -> None:
         self.shares = self.shares - amount
+
+    def __repr__(self):
+        values = tuple(vars(self).values())
+        values = [ "'" + item + "'" if isinstance(item, str) else str(item) for item in values ]
+        return 'Stock(' + ', '.join(values) + ')'
