@@ -1,14 +1,17 @@
 # report.py
 
 import fileparse
+from stock import Stock
 
-def read_portfolio(filename):
+def read_portfolio(filename) -> list[Stock]:
     '''
     Read a stock portfolio file into a list of dictionaries with keys
     name, shares, and price.
     '''
     with open(filename) as lines:
-        return fileparse.parse_csv(lines, select=['name','shares','price'], types=[str,int,float])
+        stocks_raw = fileparse.parse_csv(lines, select=['name','shares','price'], types=[str,int,float])
+        stocks = [ Stock(s['name'], s['shares'], s['price']) for s in stocks_raw ]
+    return stocks
 
 def read_prices(filename):
     '''
@@ -24,9 +27,9 @@ def make_report_data(portfolio,prices):
     '''
     rows = []
     for stock in portfolio:
-        current_price = prices[stock['name']]
-        change = current_price - stock['price']
-        summary = (stock['name'], stock['shares'], current_price, change)
+        current_price = prices[stock.name]
+        change = current_price - stock.price
+        summary = (stock.name, stock.shares, current_price, change)
         rows.append(summary)
     return rows
 
