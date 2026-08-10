@@ -55,7 +55,7 @@ def portfolio_report(portfoliofile, pricefile):
     report = make_report_data(portfolio, prices)
 
     # Print it out
-    formatter = tableformat.TableFormatter()
+    formatter = tableformat.HTMLTableFormatter()
     print_report(report, formatter)
 
 def main(args):
