@@ -1,5 +1,7 @@
 # tableformat.py
 
+from stock import Stock
+
 class TableFormatter:
     def headings(self, headers):
         '''
@@ -69,3 +71,9 @@ def create_formatter(name: str) -> TableFormatter:
             return HTMLTableFormatter()
         case _:
             raise ValueError('Name must be "txt", "csv", or "html"')
+
+def print_table(data: list[Stock], cols: list[str], formatter: TableFormatter):
+    formatter.headings(cols)
+    for s in data:
+        rowdata = [ repr(getattr(s, colname)) for colname in cols ]
+        formatter.row(rowdata)
