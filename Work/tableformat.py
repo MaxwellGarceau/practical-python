@@ -60,6 +60,9 @@ class HTMLTableFormatter(TableFormatter):
         html_list.append('</tr>')
         print(''.join(html_list))
 
+class FormatError(Exception):
+    pass
+
 # name: txt', 'csv', or 'html'
 def create_formatter(name: str) -> TableFormatter:
     match name:
@@ -70,7 +73,7 @@ def create_formatter(name: str) -> TableFormatter:
         case 'html':
             return HTMLTableFormatter()
         case _:
-            raise ValueError('Name must be "txt", "csv", or "html"')
+            raise FormatError('Unknown table format: ' + name)
 
 def print_table(data: list[Stock], cols: list[str], formatter: TableFormatter):
     formatter.headings(cols)
