@@ -5,6 +5,16 @@ class Stock:
         self.price = price
 
     @property
+    def shares(self):
+        return self._shares
+
+    @shares.setter
+    def shares(self, value):
+        if not isinstance(value, int):
+            raise TypeError('Must be of type int')
+        self._shares = value
+
+    @property
     def cost(self) -> None:
         print(self.shares * self.price)
 
