@@ -4,7 +4,7 @@ class Stock:
         self.shares = shares
         self.price = price
 
-    __slots__ = ('name', '_shares', 'price')
+    # __slots__ = ('name', '_shares', 'price')
 
     @property
     def shares(self):
