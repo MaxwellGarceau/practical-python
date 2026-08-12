@@ -15,8 +15,6 @@ def ticker(portfile, logfile, fmt='txt'):
     rows = convert_types(rows, [str, float, float])
     rows = make_dicts(rows, ['name', 'price', 'change'])
     rows = filter_symbols(rows, portfolio)
-    # for row in rows:
-    #     print(row)
 
     formatter.headings(['Name','Price','Change'])
     for r in rows:
@@ -24,25 +22,28 @@ def ticker(portfile, logfile, fmt='txt'):
         formatter.row(rowdata)
 
 def parse_stock_data(lines):
-    rows = csv.reader(lines)
-    return rows
+    return csv.reader(lines)
 
 def select_columns(rows, indices):
-    for row in rows:
-        yield [row[index] for index in indices]
+    return ((row[index] for index in indices) for row in rows)
+    # for row in rows:
+    #     yield [row[index] for index in indices]
 
 def convert_types(rows, types):
-    for row in rows:
-        yield [func(val) for func, val in zip(types, row)]
+        return ((func(val) for func, val in zip(types, row)) for row in rows)
+    # for row in rows:
+        # yield [func(val) for func, val in zip(types, row)]
 
 def make_dicts(rows, headers):
-    for row in rows:
-        yield dict(zip(headers, row))
+    return (dict(zip(headers, row)) for row in rows)
+    # for row in rows:
+    #     yield dict(zip(headers, row))
 
 def filter_symbols(rows, names):
-    for row in rows:
-        if row['name'] in names:
-            yield row
+    return (row for row in rows if row['name'] in names)
+    # for row in rows:
+    #     if row['name'] in names:
+    #         yield row
 
 def main(args):
     if len(args) < 3:
@@ -53,15 +54,3 @@ def main(args):
 if __name__ == '__main__':
     import sys
     main(sys.argv)
-
-    # portfolio = report.read_portfolio('Data/portfolio.csv')
-
-    # lines = follow('Data/stocklog.csv')
-    # rows = parse_stock_data(lines)
-    # rows = select_columns(rows, [0, 1, 4])
-    # rows = convert_types(rows, [str, float, float])
-    # rows = make_dicts(rows, ['name', 'price', 'change'])
-    # # rows = filter_symbols(rows, portfolio)
-    # rows = filter_symbols(rows, [p.name for p in portfolio])
-    # for row in rows:
-    #     print(row)
