@@ -5,7 +5,7 @@ from stock import Stock
 import tableformat
 from portfolio import Portfolio
 
-def read_portfolio(filename) -> list[Stock]:
+def read_portfolio(filename) -> Portfolio:
     '''
     Read a stock portfolio file into a list of dictionaries with keys
     name, shares, and price.
@@ -24,7 +24,7 @@ def read_prices(filename):
     with open(filename) as lines:
         return dict(fileparse.parse_csv(lines, types=[str,float], has_headers=False))
 
-def make_report_data(portfolio,prices):
+def make_report_data(portfolio: Portfolio, prices) -> list[tuple[str, int, float, float]]:
     '''
     Make a list of (name, shares, price, change) tuples given a portfolio list
     and prices dictionary.
