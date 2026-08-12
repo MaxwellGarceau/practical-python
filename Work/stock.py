@@ -18,7 +18,7 @@ class Stock:
 
     @property
     def cost(self) -> None:
-        print(self.shares * self.price)
+        return self.shares * self.price
 
     def sell(self, amount: int) -> None:
         self.shares = self.shares - amount

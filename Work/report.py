@@ -3,6 +3,7 @@
 import fileparse
 from stock import Stock
 import tableformat
+from portfolio import Portfolio
 
 def read_portfolio(filename) -> list[Stock]:
     '''
@@ -10,9 +11,11 @@ def read_portfolio(filename) -> list[Stock]:
     name, shares, and price.
     '''
     with open(filename) as lines:
-        stocks_raw = fileparse.parse_csv(lines, select=['name','shares','price'], types=[str,int,float])
-        stocks = [ Stock(s['name'], s['shares'], s['price']) for s in stocks_raw ]
-    return stocks
+        portdicts = fileparse.parse_csv(lines,
+                                select=['name','shares','price'],
+                                types=[str,int,float])
+        portfolio = [ Stock(d['name'], d['shares'], d['price']) for d in portdicts ]
+    return Portfolio(portfolio)
 
 def read_prices(filename):
     '''
