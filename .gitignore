@@ -133,3 +133,6 @@ dmypy.json
 
 # Dummy files
 stocklog.csv
+
+# Virtual environment testing
+Work/porty-app/mypython/
