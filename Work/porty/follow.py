@@ -13,7 +13,7 @@ def follow(filename):
         yield line
 
 if __name__ == '__main__':
-    import report
+    import porty.report as report
 
     portfolio = report.read_portfolio('Data/portfolio.csv')
 

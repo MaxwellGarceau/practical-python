@@ -1,9 +1,8 @@
 # report.py
 
-import fileparse
-from stock import Stock
-import tableformat
-from portfolio import Portfolio
+from . import fileparse
+import porty.tableformat as tableformat
+from porty.portfolio import Portfolio
 
 def read_portfolio(filename, **opts) -> Portfolio:
     '''

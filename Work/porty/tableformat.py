@@ -1,6 +1,6 @@
 # tableformat.py
 
-from stock import Stock
+from porty.stock import Stock
 
 class TableFormatter:
     def headings(self, headers):

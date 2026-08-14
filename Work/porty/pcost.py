@@ -1,6 +1,6 @@
 # pcost.py
 
-import report
+import porty.report as report
 
 def portfolio_cost(filename):
     '''
