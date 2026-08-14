@@ -1,6 +1,6 @@
 # report.py
 
-from . import fileparse
+import porty.fileparse as fileparse
 import porty.tableformat as tableformat
 from porty.portfolio import Portfolio
 
